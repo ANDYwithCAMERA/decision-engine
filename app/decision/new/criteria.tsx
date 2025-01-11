@@ -74,4 +74,3 @@ export default function DefineCriteria({ onBack, onNext }: DefineCriteriaProps) 
     </div>
   )
 }
-
