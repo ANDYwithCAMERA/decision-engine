@@ -10,6 +10,7 @@ export default function Home() {
   const router = useRouter()
   const loadDecision = useDecisionStore((state) => state.loadDecision)
   const [error, setError] = useState<string | null>(null)
+  const [showFileInput, setShowFileInput] = useState(false) // State to control file input visibility
 
   const handleFileUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0]
@@ -23,6 +24,10 @@ export default function Home() {
     }
   }
 
+  const handleShowFileInput = () => {
+    setShowFileInput(true) // Show the file input when the button is clicked
+  }
+
   return (
     <div className="container mx-auto px-4 py-16 flex flex-col items-center justify-center min-h-screen">
       <h1 className="text-4xl font-bold mb-8 text-center">Welcome to Decision Engine</h1>
@@ -34,21 +39,25 @@ export default function Home() {
           <Button size="lg" className="w-full">Create New Decision</Button>
         </Link>
 
-        {/* Wrap the button in the label to trigger file input */}
-        <label htmlFor="load-decision" className="w-full">
-          <Button size="lg" variant="outline" className="w-full">
-            Load Existing Decision
-          </Button>
-        </label>
+        {/* Button to trigger showing the file input */}
+        <Button
+          size="lg"
+          variant="outline"
+          className="w-full"
+          onClick={handleShowFileInput} // Trigger the state change
+        >
+          Load Existing Decision
+        </Button>
 
-        {/* Hidden file input */}
-        <input
-          id="load-decision"
-          type="file"
-          accept=".json"
-          className=""
-          onChange={handleFileUpload}
-        />
+        {/* Conditionally render file input based on state */}
+        {showFileInput && (
+          <input
+            id="load-decision"
+            type="file"
+            accept=".json"
+            onChange={handleFileUpload}
+          />
+        )}
       </div>
 
       {error && <p className="text-red-500 mt-4">{error}</p>}

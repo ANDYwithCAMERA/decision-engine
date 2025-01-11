@@ -19,7 +19,7 @@ export default function NewDecision() {
 
   return (
     <div className="container mx-auto px-4 py-8">
-      <h1 className="text-3xl font-bold mb-8">Create a New Decision</h1>
+      <h1 className=" max-w-2xl mx-auto mt-8 text-3xl font-bold mb-8">Decision Engine</h1>
       {step === 1 && <ProblemStatement onComplete={() => setStep(2)} />}
       {step === 2 && <DefineCriteria onBack={() => setStep(1)} onNext={() => setStep(3)} />}
       {step === 3 && <DefineOptions onBack={() => setStep(2)} onNext={() => setStep(4)} />}
@@ -28,4 +28,3 @@ export default function NewDecision() {
     </div>
   )
 }
-
