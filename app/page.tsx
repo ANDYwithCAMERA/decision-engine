@@ -33,18 +33,18 @@ export default function Home() {
         <Link href="/decision/new">
           <Button size="lg" className="w-full">Create New Decision</Button>
         </Link>
-        <label htmlFor="load-decision" className="cursor-pointer">
-          <Button size="lg" variant="outline" className="w-full">
-            Load Existing Decision (COMING SOON)
-          </Button>
-          <input
-            id="load-decision"
-            type="file"
-            accept=".json"
-            className="hidden"
-            onChange={handleFileUpload}
-          />
-        </label>
+     <label htmlFor="load-decision">
+        <Button size="lg" variant="outline" className="w-full">
+            Load Existing Decision
+        </Button>
+    </label>
+    <input
+        id="load-decision"
+        type="file"
+        accept=".json"
+        className="hidden"
+        onChange={handleFileUpload}
+    />
       </div>
       {error && <p className="text-red-500 mt-4">{error}</p>}
     </div>
