@@ -35,7 +35,7 @@ export default function Home() {
         </Link>
         <label htmlFor="load-decision" className="cursor-pointer">
           <Button size="lg" variant="outline" className="w-full">
-            Load Existing Decision
+            Load Existing Decision (COMING SOON)
           </Button>
           <input
             id="load-decision"
@@ -50,4 +50,3 @@ export default function Home() {
     </div>
   )
 }
-
