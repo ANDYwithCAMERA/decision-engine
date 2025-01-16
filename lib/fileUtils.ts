@@ -1,6 +1,6 @@
-import jsPDF from 'jspdf'
-import 'jspdf-autotable'
-import { DecisionState } from './store'
+import jsPDF from 'jspdf';
+import 'jspdf-autotable';
+import { DecisionState } from './store';
 
 export const saveToFile = (data: any, filename: string) => {
   const blob = new Blob([JSON.stringify(data)], { type: 'application/json' });
@@ -40,6 +40,33 @@ export const exportToPDF = (state: DecisionState) => {
   doc.setFontSize(12);
   doc.text(problemStatement, 14, 25, { maxWidth: 180 });
 
+  // Add Criteria
+  doc.setFontSize(16);
+  doc.text('Criteria', 14, 40);
+  doc.setFontSize(12);
+  criteria.forEach((criterion, index) => {
+    doc.text(
+      `${criterion.name} - ${criterion.weight}%`,
+      14,
+      50 + index * 10,
+      { maxWidth: 180 }
+    );
+  });
+
+  // Add Options
+  let optionsStartY = 50 + criteria.length * 10 + 10;
+  doc.setFontSize(16);
+  doc.text('Options', 14, optionsStartY);
+  doc.setFontSize(12);
+  options.forEach((option, index) => {
+    doc.text(
+      `${option.name}`,
+      14,
+      optionsStartY + 10 + index * 10,
+      { maxWidth: 180 }
+    );
+  });
+
   // Calculate scores
   const calculateScore = (option: any) => {
     return criteria.reduce((total, criterion) => {
@@ -62,10 +89,9 @@ export const exportToPDF = (state: DecisionState) => {
       ['Option', ...criteria.map((c) => `${c.name} (${c.weight}%)`), 'Total Score'],
     ],
     body: tableData,
-    startY: 40,
+    startY: optionsStartY + options.length * 10 + 20,
   });
 
   // Save the PDF
   doc.save('decision_results.pdf');
 };
-
